@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import cancel from "../assets/32px icon button.svg";
-// import DatePicker from 'react-date-picker';
-// import 'react-date-picker/dist/DatePicker.css';
-// import 'react-calendar/dist/Calendar.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Checkbox, FormControl, ListItemIcon, ListItemText, MenuItem, Select } from '@mui/material';
-// import expand from "../assets/expand_more.svg";
-// import Select from "react-dropdown-select";
 
 const FilterMenu = ({ setShowFilters, showFilters }) => {
     const [selectedDate, setSelectedDate] = useState(new Date())
@@ -79,7 +74,7 @@ const FilterMenu = ({ setShowFilters, showFilters }) => {
     // }, [selectLable])
 
     return (
-        <div className='filter-backdrop' onClick={() => setShowFilters(false)}>
+        <div className='filter-backdrop' >
             <div className="filter-cont">
                 <div className='filter-header'>
                     <p>Filter</p>

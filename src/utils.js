@@ -21,3 +21,14 @@ export const apiCall = async ({ url, method, headers, data }) => {
     const abbreviatedLastName = names[names.length - 1].charAt(0); 
     return abbreviatedFirstName + abbreviatedLastName;
   }
+
+  export const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const options = {
+      year: 'numeric',
+      month: 'long', 
+      day: 'numeric'
+    };
+    const formattedDate = date.toLocaleDateString('en-US', options);
+    return formattedDate;
+  }

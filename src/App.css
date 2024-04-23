@@ -4,8 +4,10 @@
     box-sizing: border-box;
   }
 .header {
-    width: 100%;
+    width: 99%;
     height: 64px;
+    margin: auto;
+    margin-top: 5px;
     border-radius: 100px;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.102);
 }
@@ -30,13 +32,13 @@
     width: 45%;
     height: 40px;
     display: flex;
-    /* border: 1px solid black; */
     justify-content: space-between;
 }
 .icon-list {
     width: 48px;
     height: 194px;
     border-radius: 100px;
+    margin-left: 1%;
     position: absolute;
     top: 280px;
     gap: 4px;
@@ -57,7 +59,6 @@
     width: 112px;
     height: 40px;
     display: flex;
-    /* border: 1px solid black; */
     align-items: center;
 }
 .revenu {
@@ -103,16 +104,36 @@
 .analytics {
     width: 80%;
     height: 360px;
-    border: 1px solid black;
     display: flex;
     justify-content: space-between;
     margin: auto;
     margin-top: 50px;
 }
 .graph {
-    width: 60%;
+    width: 65%;
     height: 360px;
-    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.available-bal {
+    height: 100px;
+    width: 70%;
+    display: flex;
+}
+.chart-cont {
+    height: 256px;
+}
+.available-amt {
+    width: 50%;
+}
+.month-range {
+    width: 100%;
+    height: 5px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #56616B;
 }
 .right {
     width: 25%;
@@ -143,18 +164,15 @@
 .small-font{
     font-weight: 500;
     font-size: 14px;
-    /* line-height: 16px; */
     color: #56616B;
 }
 .big-font {
     font-weight: 700;
-    font-size: 18px;
-    /* line-height: 38px; */
+    font-size: 16px;
     color: #131316;
 }
 .info {
     width: 100%;
-    /* border: 1px solid black; */
     display: flex;
     justify-content: space-between;
 }
@@ -200,7 +218,7 @@
     font-size: 14px;
     color: #56616B;
     font-weight: 500;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 .user-cont {
     width: 30%;
@@ -265,6 +283,7 @@
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.102);
     animation-name: dropTop;
     animation-duration: 1.5s;
+    z-index: 1000;
 }
 @keyframes dropTop {
     0%{
@@ -361,7 +380,13 @@
     border-radius: 100px;
     width: 198px;
     height: 48px;
-    background-color: #131316;
     color: #FFFFFF;
     border: 1px solid #EFF1F6;
+    background-color: #131316;
+}
+.status-successful {
+    color: #0EA163;
+}
+.status-pending {
+    color: #A77A07;
 }

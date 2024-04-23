@@ -11,13 +11,15 @@ import Menu from '../components/Menu';
 import Header from "../components/Header"
 import FilterMenu from '../components/FilterMenu';
 import { getTransactions, getWalletData } from '../services/apiService';
+import { Bar } from 'react-chartjs-2';
+import Chart from '../components/Chart';
 
 const Dashboard = () => {
     const [menuShow, setMenuShow] = useState(false)
     const [showFilters, setShowFilters] = useState(false)
     const [walletData, setWalletData] = useState()
     const [transactions, setTransactions] = useState([])
-    console.log(transactions.payment_reference)
+    console.log(transactions)
 
     const popMenu = () => {
         console.log("clicked")
@@ -35,7 +37,7 @@ const Dashboard = () => {
     }
 
     async function getTransactionsData() {
-        let data = await getTransactions()
+        const data = await getTransactions()
         console.log(data)
         setTransactions(data)
     }
@@ -57,7 +59,13 @@ const Dashboard = () => {
             {menuShow && <Menu />}
             {showFilters && <FilterMenu setShowFilters={setShowFilters} showFilters={showFilters} />}
             <div className='analytics'>
-                <div className='graph'></div>
+                <div className='graph'>
+                    <div className='available-bal'>
+                        <span className='available-amt'><p style={{ fontSize: "12px", color: '#56616B' }}>Available Balance</p><p style={{ fontSize: "24px", fontWeight: 700, color: "#131316", lineHeight: '50px' }}>USD 120,500.00</p></span>
+                        <button className='apply-btn' style={{ marginTop: '5px' }}>Withdrawal</button>
+                    </div>
+                    <Chart transactions={transactions} />
+                </div>
                 <div className='right'>
                     <div className='r-inner'>
                         <span className='info'>
@@ -106,12 +114,11 @@ const Dashboard = () => {
             <div className='users'>
                 {
                     transactions.map((transactData, i) => {
-                        return <User transactData={transactData} key={i} />
+                        const metaData = transactData?.metadata;
+                        console.log(metaData)
+                        return <User transactData={transactData} metaData={metaData} key={i} />;
                     })
                 }
-                {/* <User />
-                <User />
-                <User /> */}
             </div>
         </div>
     )
