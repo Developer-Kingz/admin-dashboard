@@ -11,7 +11,6 @@ import Menu from '../components/Menu';
 import Header from "../components/Header"
 import FilterMenu from '../components/FilterMenu';
 import { getTransactions, getWalletData } from '../services/apiService';
-import { Bar } from 'react-chartjs-2';
 import Chart from '../components/Chart';
 
 const Dashboard = () => {
@@ -19,26 +18,27 @@ const Dashboard = () => {
     const [showFilters, setShowFilters] = useState(false)
     const [walletData, setWalletData] = useState()
     const [transactions, setTransactions] = useState([])
-    console.log(transactions)
+
+    const date1 = new Date(transactions[0].date);
+    const date2 = new Date(transactions[transactions.length - 1].date);
+    const differenceMs = date1 - date2;
+    const differenceDays = Math.floor(differenceMs / (1000 * 60 * 60 * 24));
+
 
     const popMenu = () => {
-        console.log("clicked")
         setMenuShow(!menuShow)
     }
     const popFilters = () => {
-        console.log("clicked")
         setShowFilters(!showFilters)
     }
 
     async function getWallet() {
         let wallet = await getWalletData()
-        console.log(wallet)
         setWalletData(wallet)
     }
 
     async function getTransactionsData() {
         const data = await getTransactions()
-        console.log(data)
         setTransactions(data)
     }
 
@@ -99,8 +99,8 @@ const Dashboard = () => {
             </div>
             <div className='transactions'>
                 <div className='transaction-left'>
-                    <p className='big-font'>24 Transactions</p>
-                    <p className='small-font'>Your transactions for thr last 7 days</p>
+                    <p className='big-font'>{transactions.length} Transactions</p>
+                    <p className='small-font'>Your transactions for thr last {differenceDays} days</p>
                 </div>
                 <div className='transaction-right'>
                     <button className='btn' onClick={popFilters}>Filter

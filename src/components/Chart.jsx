@@ -74,8 +74,8 @@ const Chart = ({ transactions }) => {
                 height={400}
             />
             <div className='month-range'>
-                <span>{firstLabel}</span>
                 <span>{lastLabel}</span>
+                <span>{firstLabel}</span>
             </div>
         </div>
     )

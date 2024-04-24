@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import avi from "../assets/avi.svg";
-import home from "../assets/home.svg"
 import { getUserData } from '../services/apiService';
 import { abbreviateName } from '../utils';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCog, faCreditCard, faTh, faBug, faVcard, faSignOut, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 const Menu = () => {
     const [user, setUser] = useState("")
@@ -30,31 +30,41 @@ const Menu = () => {
                 </span>
             </div>
             <div className='menu-item'>
-                <img src={home} alt="" />
+                <FontAwesomeIcon
+                    icon={faCog}
+                />
                 <p>Settings</p>
             </div>
             <div className='menu-item'>
-                <img src={home} alt="" />
+                <FontAwesomeIcon
+                    icon={faShoppingCart}
+                />
                 <p>Purchase history</p>
             </div>
             <div className='menu-item'>
-                <img src={home} alt="" />
+                <FontAwesomeIcon icon={faCreditCard} />
                 <p>Refer and Earn</p>
             </div>
             <div className='menu-item'>
-                <img src={home} alt="" />
+                <FontAwesomeIcon icon={faTh} />
                 <p>Integrations</p>
             </div>
             <div className='menu-item'>
-                <img src={home} alt="" />
+                <FontAwesomeIcon
+                    icon={faBug}
+                />
                 <p>Report Bug</p>
             </div>
             <div className='menu-item'>
-                <img src={home} alt="" />
+                <FontAwesomeIcon
+                    icon={faVcard}
+                />
                 <p>Switch Account</p>
             </div>
             <div className='menu-item'>
-                <img src={home} alt="" />
+                <FontAwesomeIcon
+                    icon={faSignOut}
+                />
                 <p>Sign Out</p>
             </div>
         </div>

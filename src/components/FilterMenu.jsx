@@ -2,15 +2,23 @@ import React, { useEffect, useState } from 'react';
 import cancel from "../assets/32px icon button.svg";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { Checkbox, FormControl, ListItemIcon, ListItemText, MenuItem, Select } from '@mui/material';
+import { Checkbox, FormControl, ListItemIcon, ListItemText, MenuItem, Select, TextField } from '@mui/material';
+import clsx from 'clsx';
+
 
 const FilterMenu = ({ setShowFilters, showFilters }) => {
-    const [selectedDate, setSelectedDate] = useState(new Date())
+    const [selectedDate, setSelectedDate] = useState()
+    const [secondSelectedDate, setSecondSelectedDate] = useState()
     const [value, setValue] = useState([])
     const [statusValue, setStatusValue] = useState([])
     const [selectLable, setSelectLable] = useState([])
     const [statusSelectLabel, setStatusSelectLable] = useState([])
-    console.log(value)
+    const [isFormFilled, setIsFormFilled] = useState(false);
+
+    useEffect(() => {
+        const formFilled = selectedDate !== null && secondSelectedDate !== null && value.length > 0 && statusValue.length > 0;
+        setIsFormFilled(formFilled);
+    }, [selectedDate, secondSelectedDate, value, statusValue]);
 
     const Options = [
         { id: 1, label: "Store Transactions", value: "Store Transactions" },
@@ -35,7 +43,6 @@ const FilterMenu = ({ setShowFilters, showFilters }) => {
 
     const handleChange = (e) => {
         const selectedValue = e.target.value
-        console.log(selectedValue)
         if (selectedValue.includes("all")) {
             setValue((value && value.length) === (Options && Options.length) ? [] : OptionsValue)
             setSelectLable((value && value.length) === (Options && Options.length) ? [] : OptionsLabel)
@@ -50,7 +57,6 @@ const FilterMenu = ({ setShowFilters, showFilters }) => {
 
     const handleStatusChange = (e) => {
         const selectedValue = e.target.value
-        console.log(selectedValue)
         if (selectedValue.includes("all")) {
             setStatusValue((statusValue && statusValue.length) === (statusOptions && statusOptions.length) ? [] : OptionsStatusValue)
             setStatusSelectLable((statusValue && statusValue.length) === (statusOptions && statusOptions.length) ? [] : OptionsStatusLabel)
@@ -63,21 +69,11 @@ const FilterMenu = ({ setShowFilters, showFilters }) => {
         }))
     }
 
-    // useEffect(() => {
-    //     if (Array.isArray(selectLable) && selectLable.length > 0) {
-    //         document.querySelector('#multi-select').innerHTML = selectLable.join(", ");
-    //     } else if (!Array.isArray(selectLable)) {
-    //         document.querySelector('#multi-select').innerHTML = selectLable;
-    //     } else {
-    //         document.querySelector('#multi-select').innerHTML = "";
-    //     }
-    // }, [selectLable])
-
     return (
         <div className='filter-backdrop' >
             <div className="filter-cont">
                 <div className='filter-header'>
-                    <p>Filter</p>
+                    <p style={{ color: "#131316", fontWeight: 700 }}>Filter</p>
                     <img src={cancel} alt="" style={{ width: "34px", cursor: "pointer" }} onClick={() => setShowFilters(false)} />
                 </div>
                 <div className='filter-btns'>
@@ -93,13 +89,17 @@ const FilterMenu = ({ setShowFilters, showFilters }) => {
                             selected={selectedDate}
                             onChange={date => setSelectedDate(date)}
                             formatDate="dd MM yyyy"
-                            customInput={<input className="datepicker" />}
+                            customInput={<input className={clsx("datepicker", {
+                                "datepicker-clicked": selectedDate,
+                            })} />}
                         />
                         <DatePicker
-                            selected={selectedDate}
-                            onChange={date => setSelectedDate(date)}
+                            selected={secondSelectedDate}
+                            onChange={date => setSecondSelectedDate(date)}
                             formatDate="dd MM yyyy"
-                            customInput={<input className="datepicker" />}
+                            customInput={<input className={clsx("datepicker", {
+                                "datepicker-clicked": secondSelectedDate,
+                            })} />}
                         />
                     </div>
                 </div>
@@ -110,13 +110,15 @@ const FilterMenu = ({ setShowFilters, showFilters }) => {
                             value={value}
                             multiple
                             id="multi-select"
-                            className='multi-select-dropdown'
+                            className={clsx('multi-select-dropdown', {
+                                'multi-select-dropdown-clicked': value.length > 0,
+                            })}
                             onChange={handleChange}
                             renderValue={(selected) => selected.join(" ")}
                         >
                             <MenuItem value="all">
                                 <ListItemIcon>
-                                    <Checkbox checked={isAllSelected}></Checkbox>
+                                    <Checkbox style={{ color: 'black' }} checked={isAllSelected}></Checkbox>
                                 </ListItemIcon>
                                 <ListItemText primary="Select All"></ListItemText>
                             </MenuItem>
@@ -124,7 +126,7 @@ const FilterMenu = ({ setShowFilters, showFilters }) => {
                                 Options.map((option) => (
                                     <MenuItem key={option.id} value={option.value}>
                                         <ListItemIcon>
-                                            <Checkbox name="select-checkbox" checked={value.includes(option.value)}></Checkbox>
+                                            <Checkbox style={{ color: 'black' }} name="select-checkbox" checked={value.includes(option.value)}></Checkbox>
                                         </ListItemIcon>
                                         <ListItemText primary={option.label}></ListItemText>
                                     </MenuItem>
@@ -141,13 +143,15 @@ const FilterMenu = ({ setShowFilters, showFilters }) => {
                             value={statusValue}
                             multiple
                             id="multi-select"
-                            className='multi-select-dropdown'
+                            className={clsx('multi-select-dropdown', {
+                                'multi-select-dropdown-clicked': statusValue.length > 0,
+                            })}
                             onChange={handleStatusChange}
                             renderValue={(selected) => selected.join(" ")}
                         >
                             <MenuItem value="all">
                                 <ListItemIcon>
-                                    <Checkbox checked={isAllStatusSelected}></Checkbox>
+                                    <Checkbox style={{ color: 'black' }} checked={isAllStatusSelected}></Checkbox>
                                 </ListItemIcon>
                                 <ListItemText primary="Select All"></ListItemText>
                             </MenuItem>
@@ -155,7 +159,7 @@ const FilterMenu = ({ setShowFilters, showFilters }) => {
                                 statusOptions.map((option) => (
                                     <MenuItem key={option.id} value={option.value}>
                                         <ListItemIcon>
-                                            <Checkbox name="select-checkbox" checked={statusValue.includes(option.value)}></Checkbox>
+                                            <Checkbox style={{ color: 'black' }} name="select-checkbox" checked={statusValue.includes(option.value)}></Checkbox>
                                         </ListItemIcon>
                                         <ListItemText primary={option.label}></ListItemText>
                                     </MenuItem>
@@ -166,7 +170,9 @@ const FilterMenu = ({ setShowFilters, showFilters }) => {
                 </div>
                 <div className='filter-footer'>
                     <button className='clear-btn'>Clear</button>
-                    <button className='apply-btn'>Apply</button>
+                    <button className={clsx("apply-btn", {
+                        "apply-btn-disabled": !isFormFilled,
+                    })} disabled={!isFormFilled}>Apply</button>
                 </div>
             </div>
         </div>

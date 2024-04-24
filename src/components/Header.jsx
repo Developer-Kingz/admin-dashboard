@@ -78,9 +78,6 @@ const Header = (props) => {
                         <img src={frame} alt="" />
                     </div>
                     <div className='menu-cover' onClick={props.popMenu}>
-                        {/* <div className='icon'>
-                            <div className='name-abbrevate'>{abbrevatedName}</div>
-                        </div> */}
                         <div className='name-abbrevate'>{abbrevatedName}</div>
                         <div className='icon'>
                             <img src={menu} alt="" />
