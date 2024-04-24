@@ -19,8 +19,8 @@ const Dashboard = () => {
     const [walletData, setWalletData] = useState()
     const [transactions, setTransactions] = useState([])
 
-    const date1 = new Date(transactions[0].date);
-    const date2 = new Date(transactions[transactions.length - 1].date);
+    const date1 = new Date(transactions[0]?.date);
+    const date2 = new Date(transactions[transactions.length - 1]?.date);
     const differenceMs = date1 - date2;
     const differenceDays = Math.floor(differenceMs / (1000 * 60 * 60 * 24));
 

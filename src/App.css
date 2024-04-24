@@ -271,6 +271,7 @@
     justify-content: center;
     align-items: center;
     background-color: #474e56;
+    margin-left: 5px;
 }
 .filter-cont {
     width: 32%;
